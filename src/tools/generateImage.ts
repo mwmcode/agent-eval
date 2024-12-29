@@ -1,6 +1,6 @@
 import { openai } from '../ai';
 import { z } from 'zod';
-import { ToolFnParams } from '../types';
+import type { ToolFnParams } from '../types';
 
 export const generateImageToolDefinition = {
   name: 'generate_image',

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import fetch from 'node-fetch';
-import { ToolFnParams } from '../types';
+import type { ToolFnParams } from '../types';
 
 export const dadJokeToolDefinition = {
   name: 'dad_joke',
