@@ -3,7 +3,7 @@
   "module": "main.ts",
   "type": "module",
   "scripts": {
-    "dev": "npx tsx main.ts",
+    "rag": "npx tsx main.ts",
     "eval": "npx tsx evals/run.ts $1",
     "ingest": "npx tsx src/rag/ingest.ts"
   },

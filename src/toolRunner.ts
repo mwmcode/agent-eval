@@ -4,8 +4,10 @@ import {
   generateImageToolDefinition,
   redditToolDefinition,
   dadJokeToolDefinition,
+  movieSearchToolDefinition,
   reddit,
   dadJoke,
+  movieSearch,
 } from './tools';
 
 export const runTool = async (
@@ -27,7 +29,10 @@ export const runTool = async (
     case dadJokeToolDefinition.name:
       return dadJoke(input);
 
+    case movieSearchToolDefinition.name:
+      return movieSearch(input);
+
     default:
-      return `Never run this tool: ${toolCall.function.name} again!`;
+      return `Never run this tool: ${toolCall.function.name} again! 😠`;
   }
 };
