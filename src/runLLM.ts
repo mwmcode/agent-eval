@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { zodFunction, zodResponseFormat } from 'openai/helpers/zod';
 import { systemPrompt as defaultSystemPrompt } from './systemPrompt';
 import type { RunLLMParams } from './types';
+import { getSummary } from './memory';
 
 export async function runLLM({
   messages,
@@ -11,14 +12,16 @@ export async function runLLM({
   systemPrompt,
 }: RunLLMParams) {
   const formattedTools = tools.map(zodFunction);
-
+  const summary = await getSummary();
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     temperature,
     messages: [
       {
         role: 'system',
-        content: systemPrompt || defaultSystemPrompt,
+        content: `${
+          systemPrompt || defaultSystemPrompt
+        }. Conversation summary so far: ${summary}`,
       },
       ...messages,
     ],
@@ -31,4 +34,3 @@ export async function runLLM({
 
   return response.choices[0].message;
 }
-

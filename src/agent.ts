@@ -45,7 +45,7 @@ export async function runAgent({
         loader.stop();
         return getMessages();
       }
-      console.log('nooooo');
+
       const toolResponse = await runTool(toolCall, userMessage);
       await saveToolResponse(toolCall.id, toolResponse);
       loader.update(`done: ${toolCall.function.name}`);

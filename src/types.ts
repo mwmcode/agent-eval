@@ -18,6 +18,7 @@ export type MessageWithMetadata = AIMessage & {
 
 export type DataT = {
   messages: MessageWithMetadata[];
+  summary: string;
 };
 
 export type ToolT = OpenAI.ChatCompletionTool;
