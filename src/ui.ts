@@ -1,5 +1,6 @@
 import ora from 'ora';
 import type { AIMessage } from './types.ts';
+import { generateImageToolDefinition } from './tools/generateImage.ts';
 
 export function showLoader(text: string) {
   const spinner = ora({
@@ -15,7 +16,7 @@ export function showLoader(text: string) {
   };
 }
 
-export function logMessage(message: AIMessage) {
+export function logAgentMessageToUser(message: AIMessage) {
   const roleColors = {
     user: '\x1b[36m', // cyan
     assistant: '\x1b[32m', // green
@@ -39,11 +40,15 @@ export function logMessage(message: AIMessage) {
 
   // Log assistant messages
   if (role === 'assistant') {
-    // If has tool_calls, log function name
+    // If has tool_calls, log function name and ask for approval if calendar
     if ('tool_calls' in message && message.tool_calls) {
       message.tool_calls.forEach(tool => {
         console.log(`\n${color}[ASSISTANT]${reset}`);
         console.log(`${tool.function.name}\n`);
+
+        if (tool.function.name === generateImageToolDefinition.name) {
+          console.log('\nDo you approve generating an image? (yes/no)\n');
+        }
       });
       return;
     }
